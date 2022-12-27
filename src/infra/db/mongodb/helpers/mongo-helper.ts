@@ -1,4 +1,3 @@
-import { AccountModel } from './../../../../domain/models/account'
 import { Collection, MongoClient } from 'mongodb'
 
 export const MongoHelper = {
@@ -17,10 +16,6 @@ export const MongoHelper = {
 
   map: (collection: any): any => {
     const { _id, ...collectionWithoutId } = collection
-    const accountIdToHexString = {
-      ...(collectionWithoutId as Omit<AccountModel, 'id'>),
-      id: _id.toHexString()
-    }
-    return accountIdToHexString
+    return Object.assign({}, collectionWithoutId, { id: _id })
   }
 }
